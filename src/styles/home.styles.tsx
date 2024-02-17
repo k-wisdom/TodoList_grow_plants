@@ -1,9 +1,8 @@
 import styled from "styled-components";
 
 export const MainTop = styled.div`
-  margin-bottom: 10rem;
   padding: 2rem;
-  background: #777cfc;
+  background: #5ab380;
   font-size: 2rem;
   text-align: center;
   color: #fff;
