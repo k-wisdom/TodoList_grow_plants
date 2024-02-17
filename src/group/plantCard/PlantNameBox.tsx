@@ -31,7 +31,7 @@ export default function PlantNameBox() {
   };
 
   return (
-    <div>
+    <div style={{minHeight: '2rem'}}>
       <span>Lv.{level}</span>
       {!isEditName ? (
         <button className="plant_name" onClick={() => setIsEditName(true)}>
