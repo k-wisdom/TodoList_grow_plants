@@ -6,6 +6,7 @@ import store from "./store";
 import { Home, SignIn, SignUp, NotFound, SelectPlant } from "./pages";
 import NotAuthLayout from "./components/layout/NotAuthLayout";
 import AuthLayout from "./components/layout/AuthLayout";
+import MyPlants from "./pages/MyPlants";
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
         <Routes>
           <Route element={<AuthLayout />}>
             <Route path="/home" element={<Home />} />
+            <Route path="/myPlants" element={<MyPlants />} />
             <Route path="/selectPlant" element={<SelectPlant />} />
           </Route>
           <Route element={<NotAuthLayout />}>
