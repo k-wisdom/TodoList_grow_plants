@@ -1,0 +1,125 @@
+{
+  "users": [
+    {
+      "email": "wlgp3011@naver.com",
+      "password": "$2a$10$sDxKVLJirH0ilFfmtVvKu.vl7xTLgzJ/awkPJXsaKQT8CXtkexVKq",
+      "name": "김지혜",
+      "id": 1
+    },
+    {
+      "email": "test@test.com",
+      "password": "$2a$10$k.gk1W/aJMbNJi2AIk39tuxPKoiD1DABQH2b9F/bAoK0qOqgOZ7.C",
+      "name": "테스트",
+      "id": 2
+    }
+  ],
+  "plantsList": [
+    {
+      "id": 1,
+      "type": "tulip",
+      "name": "튤립",
+      "img": "img_tulip_1.png"
+    },
+    {
+      "id": 2,
+      "type": "cactus",
+      "name": "선인장",
+      "img": "img_cactus_1.png"
+    }
+  ],
+  "plants": [
+    {
+      "id": 1,
+      "type": "tulip",
+      "name": "튤리",
+      "level": 6,
+      "growthRate": 35,
+      "nutrientCount": 5,
+      "water": 3,
+      "nutrient": 80,
+      "typeName": "튤립"
+    },
+    {
+      "id": 2,
+      "level": 0
+    }
+  ],
+  "completePlants": [
+    {
+      "plants": [
+        {
+          "date": "2024-02-15",
+          "type": "tulip",
+          "name": "튤튤이",
+          "typeName": "튤립"
+        },
+        {
+          "date": "2024-02-17",
+          "type": "cactus",
+          "name": "인장이",
+          "typeName": "선인장"
+        }
+      ],
+      "id": 1
+    },
+    {
+      "plants": [],
+      "id": 2
+    }
+  ],
+  "todos": [
+    {
+      "id": 1,
+      "todoList": [
+        {
+          "text": "주방 청소하기",
+          "id": 70,
+          "isChecked": true,
+          "getReward": true
+        },
+        {
+          "text": "리덕스 스터디",
+          "id": 71,
+          "isChecked": true,
+          "getReward": true
+        },
+        {
+          "text": "공과금 내기",
+          "id": 74,
+          "isChecked": true,
+          "getReward": false
+        },
+        {
+          "text": "카레 만들기",
+          "id": 75,
+          "isChecked": true,
+          "getReward": true
+        },
+        {
+          "text": "이불 빨래하기",
+          "id": 76,
+          "isChecked": false,
+          "getReward": false
+        },
+        {
+          "text": "화분에 물 주기",
+          "id": 77,
+          "isChecked": false,
+          "getReward": false
+        },
+        {
+          "text": "책 읽기",
+          "id": 78,
+          "isChecked": false,
+          "getReward": false
+        }
+      ],
+      "currentSq": 84
+    },
+    {
+      "currentSq": 1,
+      "todoList": [],
+      "id": 2
+    }
+  ]
+}
