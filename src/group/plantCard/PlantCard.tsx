@@ -1,14 +1,12 @@
-import { shallowEqual } from "@babel/types";
 import React, { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
 import { useNavigate } from "react-router";
 import IconTxtBtn from "../../components/buttons/IconTxtBtn";
 import BlinkStar from "../../components/items/BlinkStar";
 import { DropWater } from "../../components/items/DropWater";
 import GiftAlert from "../../components/popup/GiftAlert";
 import { ListPopup } from "../../components/popup/ListPopup";
-import { RootState, useAppDispatch } from "../../store";
-import { updatePlants } from "../../store/plantsSlice";
+import { RootState, useAppDispatch, useAppSelector } from "../../store";
+import { selectPlant, updatePlants } from "../../store/plantsSlice";
 import {
   BottomBtnWrap,
   NutritionBar,
@@ -43,7 +41,7 @@ export default function PlantCard() {
     nutrient,
     water,
     growthRate,
-  } = useSelector((state: RootState) => state.plant.plantInfo, shallowEqual);
+  } = useAppSelector(selectPlant);
   const userSq = Number(localStorage.getItem("userSq"));
 
   const [showWater, setShowWater] = useState(false);

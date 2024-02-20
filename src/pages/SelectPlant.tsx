@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
 import { useNavigate } from "react-router";
 import InputWithBtn from "../components/frame/InputWithBtn";
 import { SmallPlantCard } from "../group/plantCard/SmallPlantCard";
-import { RootState, useAppDispatch } from "../store";
-import { updatePlants } from "../store/plantsSlice";
+import { useAppDispatch, useAppSelector } from "../store";
+import { selectPlant, updatePlants } from "../store/plantsSlice";
 import { SelectPlantCardWrap, Tutorial } from "../styles/plant.style";
 import { ContentWrap, Main, TextCenter, Title } from "../styles/styles";
 import API from "../utils/API";
@@ -29,7 +28,7 @@ export default function SelectPlant() {
   const [plantType, setPlantType] = useState("");
   const [plantName, setPlantName] = useState("");
 
-  const { level } = useSelector((state: RootState) => state.plant.plantInfo);
+  const { level } = useAppSelector(selectPlant);
 
   const navigator = useNavigate();
   const dispatch = useAppDispatch();

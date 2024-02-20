@@ -1,4 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { RootState } from '.';
 import API from "../utils/API";
 
 export const fetchPlants = createAsyncThunk(
@@ -76,21 +77,21 @@ const plantSlice = createSlice({
   name: "plants",
   initialState,
   reducers: {},
-  extraReducers: (builder: any) => {
-    builder.addCase(fetchPlants.fulfilled, (state: any, { payload }: any) => {
+  extraReducers: (builder) => {
+    builder.addCase(fetchPlants.fulfilled, (state, { payload }) => {
       state.plantInfo = { ...state.plantInfo, ...payload.data };
     });
-    builder.addCase(fetchPlants.rejected, (state: any, action: any) => {
+    builder.addCase(fetchPlants.rejected, (state, action: any) => {
       if (action.payload) {
         state.error = action.playlod.errorMessage;
       } else {
         state.error = action.error;
       }
     });
-    builder.addCase(updatePlants.fulfilled, (state: any, { payload }: any) => {
+    builder.addCase(updatePlants.fulfilled, (state, { payload }) => {
       state.plantInfo = { ...state.plantInfo, ...payload.data };
     });
-    builder.addCase(updatePlants.rejected, (state: any, action: any) => {
+    builder.addCase(updatePlants.rejected, (state, action: any) => {
       if (action.payload) {
         state.error = action.playlod.errorMessage;
       } else {
@@ -99,13 +100,13 @@ const plantSlice = createSlice({
     });
     builder.addCase(
       updateGrowthMaterial.fulfilled,
-      (state: any, { payload }: any) => {
+      (state, { payload }) => {
         state.plantInfo = { ...state.plantInfo, ...payload.data };
       },
     );
     builder.addCase(
       updateGrowthMaterial.rejected,
-      (state: any, action: any) => {
+      (state, action: any) => {
         if (action.payload) {
           state.error = action.playlod.errorMessage;
         } else {
@@ -116,3 +117,5 @@ const plantSlice = createSlice({
   },
 });
 export default plantSlice;
+
+export const selectPlant = (state: RootState) => state.plant.plantInfo;

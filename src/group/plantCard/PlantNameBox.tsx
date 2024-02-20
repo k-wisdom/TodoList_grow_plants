@@ -1,17 +1,14 @@
 import React, { useRef, useState } from "react";
-import { useSelector } from "react-redux";
 import InputWithBtn from "../../components/frame/InputWithBtn";
-import { RootState, useAppDispatch } from "../../store";
-import { updatePlants } from "../../store/plantsSlice";
+import { useAppDispatch, useAppSelector } from "../../store";
+import { selectPlant, updatePlants } from "../../store/plantsSlice";
 import { ERROR_MESSAGE } from "../../utils/Constant";
 
 export default function PlantNameBox() {
   const [isEditName, setIsEditName] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
   const userSq = Number(localStorage.getItem("userSq"));
-  const { level, name } = useSelector(
-    (state: RootState) => state.plant.plantInfo,
-  );
+  const { level, name } = useAppSelector(selectPlant)
   const dispatch = useAppDispatch();
 
   //이름 변경

@@ -13,26 +13,21 @@ export default function Home() {
 
   const userSq = getUserSq();
   const dispatch = useAppDispatch();
-  //데이터 가져오기
-  const getPlantsData = async () => {
-    const resultAction = await dispatch(fetchPlants(userSq));
-    if (!fetchPlants.fulfilled.match(resultAction)) {
-      console.log(resultAction.error.message);
-    }
-  };
 
-  const getTodosData = async () => {
-    const resultAction = await dispatch(fetchTodos());
-    if (!fetchTodos.fulfilled.match(resultAction)) {
-      console.log(resultAction.error.message);
+  //데이터 가져오기
+  useEffect(() => {
+    const resultAction = dispatch(fetchTodos());
+    return () => {
+      resultAction.abort()
     }
-  };
+  },[userSq, dispatch])
 
   useEffect(() => {
-    getPlantsData();
-    getTodosData();
-    // eslint-disable-next-line
-  }, []);
+    const resultAction = dispatch(fetchPlants(userSq));
+    return() => {
+      resultAction.abort()
+    }
+  },[userSq, dispatch])
 
   return (
     <Main>
