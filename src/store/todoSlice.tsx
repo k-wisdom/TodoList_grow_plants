@@ -1,4 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { RootState } from '.';
 import { ITodo } from "../group/todoList/types";
 import API from "../utils/API";
 import { getUserSq } from "../utils/utils";
@@ -36,15 +37,18 @@ export const updateTodos = createAsyncThunk<
   Partial<ITodo>,
   { state: { todos: IinitialState } }
 >("/todos/update", async (params: any, thunkAPI) => {
-  const { id, getReward, isChecked } = params;
-
+  let { id, getReward, isChecked } = params;
+  let idx = 0;
   const { todoList } = thunkAPI.getState().todos;
-  const newTodo = todoList.map((todo) => {
+  const newTodo = todoList.map((todo, index) => {
     if (todo.id === id) {
+      idx = index;
+      isChecked = isChecked !== undefined ? isChecked : todo.isChecked
+      getReward = getReward !== undefined ? getReward : todo.getReward
       return (todo = {
         ...todo,
-        isChecked: isChecked !== undefined ? isChecked : todo.isChecked,
-        getReward: getReward !== undefined ? getReward : todo.getReward,
+        isChecked,
+        getReward
       });
     } else {
       return todo;
@@ -58,7 +62,8 @@ export const updateTodos = createAsyncThunk<
   if (response.status === 400) {
     return thunkAPI.rejectWithValue(response.statusText);
   }
-  return response;
+  //return response;
+  return {id, isChecked, getReward, idx}
 });
 
 export const deleteTodos = createAsyncThunk<
@@ -97,20 +102,24 @@ const TodoSlice = createSlice({
   initialState,
   reducers: {},
   extraReducers: (builder: any) => {
-    builder.addCase(fetchTodos.fulfilled, (state: any, { payload }: any) => {
+    builder
+    .addCase(fetchTodos.fulfilled, (state: any, { payload }: any) => {
       state.currentSq = payload.data.currentSq;
       state.todoList = [...payload.data.todoList];
-    });
-    builder.addCase(addTodos.fulfilled, (state: any, { payload }: any) => {
+    })
+    .addCase(addTodos.fulfilled, (state: any, { payload }: any) => {
       state.currentSq = payload.data.currentSq;
       state.todoList = [...payload.data.todoList];
-    });
-    builder.addCase(updateTodos.fulfilled, (state: any, { payload }: any) => {
-      state.todoList = [...payload.data.todoList];
-    });
-    builder.addCase(deleteTodos.fulfilled, (state: any, { payload }: any) => {
+    })
+    .addCase(updateTodos.fulfilled, (state: any, { payload }: any) => {
+      // state.todoList = [...payload.data.todoList];
+      state.todoList[payload.idx] = {...state.todoList[payload.idx], isChecked: payload.isChecked, getReward: payload.getReward}
+    })
+    .addCase(deleteTodos.fulfilled, (state: any, { payload }: any) => {
       state.todoList = [...payload.data.todoList];
     });
   },
 });
 export default TodoSlice;
+
+export const selectTodoList = (state: RootState) => state.todos.todoList;

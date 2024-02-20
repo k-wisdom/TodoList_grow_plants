@@ -1,37 +1,36 @@
-import React, { useState } from "react";
+import React, { useCallback, useState } from "react";
 import { randomNumnBetween } from "../../utils/utils";
 import Todo from "./Todo";
-import { RootState, useAppDispatch } from "../../store";
-import { deleteTodos, updateTodos } from "../../store/todoSlice";
-import { useSelector } from "react-redux";
+import { useAppDispatch, useAppSelector } from "../../store";
+import { deleteTodos, selectTodoList, updateTodos } from "../../store/todoSlice";
 import GiftAlert from "../../components/popup/GiftAlert";
 
 export default function TodoList() {
   const [showRewardPopup, setShowRewardPopup] = useState(false);
 
   const dispatch = useAppDispatch();
-  const todoList = useSelector((state: RootState) => state.todos.todoList);
+  const todoList = useAppSelector(selectTodoList);
 
-  const handleChange = (e: any) => {
+  const handleChange = useCallback((e: any) => {
     const param = {
       id: Number(e.target.getAttribute("id")),
       isChecked: e.target.checked,
     };
     dispatch(updateTodos(param)).catch((error) => console.error(error));
-  };
+  },[dispatch]);
 
-  const deleteFn = (id: number) => {
+  const deleteFn = useCallback((id: number) => {
     dispatch(deleteTodos(id)).catch((error) => console.error(error));
-  };
+  },[dispatch]);
 
-  const getRewardFn = (id: number) => {
+  const getRewardFn = useCallback((id: number) => {
     setShowRewardPopup(true);
     const param = {
       id,
       getReward: true,
     };
     dispatch(updateTodos(param)).catch((error) => console.error(error));
-  };
+  },[dispatch]);
 
   return (
     <>

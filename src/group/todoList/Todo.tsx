@@ -1,4 +1,4 @@
-import React from "react";
+import React, { memo } from "react";
 import { styled } from "styled-components";
 import { ITodo } from "./types";
 
@@ -9,7 +9,7 @@ interface Props extends ITodo {
   getRewardFn: (id: number) => void;
 }
 
-export default function Todo({
+export default memo( function Todo({
   id,
   text,
   isChecked,
@@ -44,7 +44,7 @@ export default function Todo({
       </TodoBtnWrap>
     </List>
   );
-}
+})
 
 const TodoContent = styled.div`
   position: relative;
